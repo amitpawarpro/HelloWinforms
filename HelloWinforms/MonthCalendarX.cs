@@ -245,6 +245,10 @@ namespace HelloWinforms
                     if (button != null)
                     {
                         button.Checked = false;
+                        if (DateChanged != null)
+                        {
+                            DateChanged(this, new DateChangedEventArgs((DateTime)toggleButton.Tag));
+                        }
                     }
                 }
                 _selectedDateTextBox.Text = ((DateTime)toggleButton.Tag).ToString("dd-MM-yyyy (ddd)");
@@ -252,6 +256,9 @@ namespace HelloWinforms
             };
             return toggleButton;
         }
+
+
+        public event EventHandler DateChanged;
 
         public List<Holiday> Holidays
         {
@@ -273,4 +280,16 @@ namespace HelloWinforms
             }
         }
     }
+
+    public class DateChangedEventArgs: EventArgs
+    {
+        public DateTime Date { get; set; }
+    
+        public DateChangedEventArgs( DateTime date)
+        {
+            Date = date;
+    
+        }
+    }
+
 }
