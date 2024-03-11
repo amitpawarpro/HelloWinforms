@@ -146,11 +146,16 @@ namespace HelloWinforms
             // Sample holidays (you can set these through the Holidays property)
             Holidays = new List<Holiday>
         {
-            new Holiday(new DateTime(2024, 1, 1), "New Year Day"),
-             new Holiday(new DateTime(2024, 7, 11), "Amit's Day"),
-            new Holiday(new DateTime(2024, 12, 25), "Christmas"),
-            new Holiday(new DateTime(2024, 7, 4), "Independence Day"),
-            new Holiday(new DateTime(2024, 9, 2), "Labor Day")
+            new Holiday(new DateTime(2024, 1, 1), "New Year Day", Calendar.Gregorian),
+            new Holiday(new DateTime(2024, 3, 29), "Good Friday", Calendar.Gregorian),
+            new Holiday(new DateTime(2024, 1, 15), "Sankranti", Calendar.Indian),
+            new Holiday(new DateTime(2024, 3, 8), "Mahashivratri", Calendar.Indian),
+            new Holiday(new DateTime(2024, 1, 25), "Shevat", Calendar.Hebrew),
+            new Holiday(new DateTime(2024, 3, 23), "Purim", Calendar.Hebrew),
+            new Holiday(new DateTime(2024, 4, 10), "Eid al Fitr", Calendar.Islamic),
+            new Holiday(new DateTime(2024, 6, 16), "Eid al Adha", Calendar.Islamic),
+            new Holiday(new DateTime(2024, 2, 23), "Emperor’s Birthday", Calendar.Japanese),
+            new Holiday(new DateTime(2024, 4, 29), "Showa Day", Calendar.Japanese),
         };
 
             InitCalendar();
