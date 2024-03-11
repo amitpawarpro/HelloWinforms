@@ -53,7 +53,7 @@ namespace HelloWinforms
             this.monthCalendarx1.Name = "monthCalendarx1";
             this.monthCalendarx1.Size = new System.Drawing.Size(150, 150);
             this.monthCalendarx1.TabIndex = 0;
-            this.monthCalendarx1.DateChanged += new System.EventHandler(this.monthCalendarx1_DateChanged);
+            this.monthCalendarx1.ValueChanged += new System.EventHandler(this.monthCalendarx1_DateChanged);
             // 
             // DatePicker
             // 

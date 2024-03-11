@@ -13,7 +13,7 @@
     <Compile Update="MonthCalendarX.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="ToggleButton.cs">
+    <Compile Update="DayButton.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

@@ -11,10 +11,22 @@ namespace HelloWinforms
         public DateTime Date { get; set; }
         public string Description { get; set; }
 
-        public Holiday(DateTime date, string description)
+        public Calendar Calendar { get; set; }
+
+        public Holiday(DateTime date, string description, Calendar calendar)
         {
             Date = date;
             Description = description;
+            Calendar = calendar;
         }
+    }
+
+    public enum Calendar
+    {
+        Gregorian,
+        Indian,
+        Japanese,
+        Islamic,
+        Hebrew,
     }
 }

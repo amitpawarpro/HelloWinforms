@@ -17,7 +17,7 @@ namespace HelloWinforms
         private readonly int _buttonWidth = 15;
         private readonly int _buttonHeight = 10;
         private readonly int _headerHeight = 30;
-        private readonly Color _headerBackColor = Color.DarkGray;
+        private readonly Color _headerBackColor = SystemColors.ButtonFace;
 
         private ComboBox _monthComboBox;
         private NumericUpDown _yearNumericUpDown;
@@ -28,13 +28,48 @@ namespace HelloWinforms
         private Panel _bottomPanel;
 
         private List<Holiday> _holidaysList;
-        private ToggleButton[,] _toggleButtons;
+        private DayButton[,] _toggleButtons;
         private ToolTip _toolTip = new ToolTip();
         public MonthCalendarX()
         {
             InitializeComponent();
+            _toolTip.ShowAlways = true;
             InitializeCalendar();
             SetDefaults();
+        }
+
+
+        [EditorBrowsable()]
+        [Category("Behavior")]
+        public bool AllowSelectionOfHolidays { get; set; }
+
+        private DateTime _value;
+
+        [EditorBrowsable()]
+        [Category("Behavior")]
+        public DateTime Value
+        {
+            get { return _value; }
+            set { _value = value;
+                SetDateToCalendar(value.Date);
+            }
+        }
+
+        private void SetDateToCalendar(DateTime value)
+        {
+            if (value == new DateTime()) return;
+            _yearNumericUpDown.Value = value.Year;
+            _monthComboBox.SelectedIndex = value.Month - 1;
+
+            for (int i = 0; i < 5; i++)
+            {
+                var button = _toggleButtons[i, (int)value.DayOfWeek];
+                if ((DateTime)button.Tag == value)
+                {
+                    button.Checked = true;
+                    break;
+                }
+            }
         }
 
         private void InitializeCalendar()
@@ -48,7 +83,7 @@ namespace HelloWinforms
 
             _middlePanel = new Panel();
             _middlePanel.Dock = DockStyle.Fill;
-            _middlePanel.BackColor = SystemColors.ControlDark;
+            _middlePanel.BackColor = SystemColors.Control;
 
             _bottomPanel = new Panel();
             _bottomPanel.Dock = DockStyle.Bottom;
@@ -57,7 +92,7 @@ namespace HelloWinforms
 
             _monthComboBox = new ComboBox();
             _monthComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            _monthComboBox.Items.AddRange(Enum.GetNames(typeof(Months)));
+            _monthComboBox.Items.AddRange(DateTimeFormatInfo.CurrentInfo.MonthNames.SkipLast(1).ToArray());
             _monthComboBox.SelectedIndex = DateTime.Today.Month - 1; // Default to current month
             _monthComboBox.SelectedIndexChanged += (sender, e) => UpdateCalendar();
 
@@ -98,13 +133,13 @@ namespace HelloWinforms
             Controls.Add(_bottomPanel);
 
             _holidaysList = new List<Holiday>();
-            _toggleButtons = new ToggleButton[6, 7];
+            _toggleButtons = new DayButton[6, 7];
 
             for (int i = 0; i < 6; i++)
             {
                 for (int j = 0; j < 7; j++)
                 {
-                    _toggleButtons[i, j] = GetToggleButton();
+                    _toggleButtons[i, j] = GetDayButton();
                 }
             }
 
@@ -123,10 +158,10 @@ namespace HelloWinforms
 
         private void SetDefaults()
         {
-            _selectedDateTextBox.Text = DateTime.Today.ToString("dd-MM-yyyy (ddd)");
+            _selectedDateTextBox.Text = DateTime.Today.ToString("ddd dd-MM-yyyy");
             if (_toggleButtons[0, 0] != null)
             {
-                //_toggleButtons[0, 0].Checked = true; // Default to the first toggle button
+                _toggleButtons[0, 0].Checked = true; // Default to the first toggle button
             }
 
             _monthComboBox.SelectedIndex = 0;
@@ -144,7 +179,7 @@ namespace HelloWinforms
 
             for (int i = 0; i < 7; i++)
             {
-                var dayButton = new Button
+                var dayButton = new DayButton
                 {
                     Text = dayNames[i].Substring(0, 3),
                     TextAlign = ContentAlignment.MiddleCenter,
@@ -152,6 +187,7 @@ namespace HelloWinforms
                     ForeColor = Color.White,
                     Enabled = false
                 };
+                _toolTip.SetToolTip(dayButton, dayNames[i]);
                 _calendarTable.Controls.Add(dayButton, i, 1);
             }
             for (int row = 2; row <= 7; row++)
@@ -169,7 +205,7 @@ namespace HelloWinforms
         {
             if (_monthComboBox.SelectedItem == null) return;
 
-            var selectedMonth = (Months)Enum.Parse(typeof(Months), _monthComboBox.SelectedItem.ToString());
+            var selectedMonth = DateTimeFormatInfo.CurrentInfo.MonthNames.ToList().IndexOf(_monthComboBox.SelectedItem.ToString()) + 1;
             var selectedYear = (int)_yearNumericUpDown.Value;
             var firstDayOfMonth = new DateTime(selectedYear, (int)selectedMonth, 1);
             var daysInMonth = DateTime.DaysInMonth(selectedYear, (int)selectedMonth);
@@ -210,55 +246,54 @@ namespace HelloWinforms
         {
             if (_toggleButtons[row - 2, col] == null)
             {
-                _toggleButtons[row - 2, col] = GetToggleButton();
+                _toggleButtons[row - 2, col] = GetDayButton();
             }
             _toggleButtons[row - 2, col].Text = day.Day.ToString();
 
             _toggleButtons[row - 2, col].Tag = day;
             _selectedDateTextBox.Text = ((DateTime)_toggleButtons[row - 2, col].Tag).ToString("ddd dd-MMM-yyyy");
 
-            string toolTip = GetToolTip(day);
-            _toggleButtons[row - 2, col].ForeColor = string.IsNullOrEmpty(toolTip) ? Color.Black : Color.Red;
+            string toolTipText = GetToolTip(day);
+            var isWorkDay = string.IsNullOrEmpty(toolTipText);
+            //_toggleButtons[row - 2, col].ForeColor = isWorkDay ? Color.Black : Color.Red;
+            _toggleButtons[row - 2, col].ForeColor = isCurrentMonth ? SystemColors.WindowText : SystemColors.GrayText;
+            _toggleButtons[row - 2, col].BackColor = isWorkDay ? SystemColors.ButtonHighlight : SystemColors.ButtonFace;
 
-            _toolTip.SetToolTip(_toggleButtons[row - 2, col], toolTip);
-            _toggleButtons[row - 2, col].BackColor = isCurrentMonth ? SystemColors.Control : Color.FromArgb(200, 200, 200);
+            _toggleButtons[row - 2, col].Cursor = AllowSelectionOfHolidays ? Cursors.Default : isWorkDay ? Cursors.Default : Cursors.No;
+
+            _toolTip.SetToolTip(_toggleButtons[row - 2, col], isWorkDay ? day.ToShortDateString(): $"{ day.ToShortDateString()} ({toolTipText})");
         }
 
         private string GetToolTip(DateTime day)
         {
             if (day.DayOfWeek == DayOfWeek.Sunday || day.DayOfWeek == DayOfWeek.Saturday) return day.DayOfWeek.ToString();
             Holiday holiday = _holidaysList.FirstOrDefault(h => h.Date.Date == day.Date);
-            if (holiday != null) return holiday.Description;
+            if (holiday != null) return $"{holiday.Description}-{holiday.Calendar}";
 
             return string.Empty;
         }
 
-        private ToggleButton GetToggleButton()
+        private DayButton GetDayButton()
         {
-            var toggleButton = new ToggleButton();
-            toggleButton.Size = new Size(_buttonWidth, _buttonHeight);
-            toggleButton.Click += (sender, e) =>
+            var dayButton = new DayButton();
+            dayButton.Size = new Size(_buttonWidth, _buttonHeight);
+            dayButton.Click += (sender, e) =>
             {
-                if (toggleButton.ForeColor == Color.Red) { toggleButton.Checked = false; return; };
-                foreach (ToggleButton button in _toggleButtons)
+                if (!AllowSelectionOfHolidays && dayButton.Cursor == Cursors.No) 
                 {
-                    if (button != null)
-                    {
-                        button.Checked = false;
-                        if (DateChanged != null)
-                        {
-                            DateChanged(this, new DateChangedEventArgs((DateTime)toggleButton.Tag));
-                        }
-                    }
-                }
-                _selectedDateTextBox.Text = ((DateTime)toggleButton.Tag).ToString("dd-MM-yyyy (ddd)");
-
+                    dayButton.Checked = false;
+                    SetDateToCalendar(_value);
+                    return; 
+                };
+                _value = (DateTime)dayButton.Tag;
+                _selectedDateTextBox.Text = ((DateTime)dayButton.Tag).ToString("dd-MM-yyyy (ddd)");
+                if (ValueChanged != null) ValueChanged(this, new ValueChangedEventArgs(Value));
             };
-            return toggleButton;
+            return dayButton;
         }
 
 
-        public event EventHandler DateChanged;
+        public event EventHandler ValueChanged;
 
         public List<Holiday> Holidays
         {
@@ -281,14 +316,13 @@ namespace HelloWinforms
         }
     }
 
-    public class DateChangedEventArgs: EventArgs
+    public class ValueChangedEventArgs: EventArgs
     {
         public DateTime Date { get; set; }
     
-        public DateChangedEventArgs( DateTime date)
+        public ValueChangedEventArgs( DateTime date)
         {
             Date = date;
-    
         }
     }
 
