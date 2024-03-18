@@ -28,5 +28,8 @@ namespace HelloWinforms
         Japanese,
         Islamic,
         Hebrew,
+        Chinese,
+        Iranian,
+        Persian
     }
 }
