@@ -146,16 +146,25 @@ namespace HelloWinforms
             // Sample holidays (you can set these through the Holidays property)
             Holidays = new List<Holiday>
         {
-            new Holiday(new DateTime(2024, 1, 1), "New Year Day", Calendar.Gregorian),
-            new Holiday(new DateTime(2024, 3, 29), "Good Friday", Calendar.Gregorian),
-            new Holiday(new DateTime(2024, 1, 15), "Sankranti", Calendar.Indian),
-            new Holiday(new DateTime(2024, 3, 8), "Mahashivratri", Calendar.Indian),
-            new Holiday(new DateTime(2024, 1, 25), "Shevat", Calendar.Hebrew),
-            new Holiday(new DateTime(2024, 3, 23), "Purim", Calendar.Hebrew),
-            new Holiday(new DateTime(2024, 4, 10), "Eid al Fitr", Calendar.Islamic),
-            new Holiday(new DateTime(2024, 6, 16), "Eid al Adha", Calendar.Islamic),
-            new Holiday(new DateTime(2024, 2, 23), "Emperor’s Birthday", Calendar.Japanese),
-            new Holiday(new DateTime(2024, 4, 29), "Showa Day", Calendar.Japanese),
+            new Holiday(new DateTime(2024, 1, 1), "New Year Day", Calendars.Gregorian),
+            new Holiday(new DateTime(2024, 3, 29), "Good Friday", Calendars.Gregorian),
+
+            new Holiday(new DateTime(2024, 1, 15), "Indian fest", Calendars.Indian),
+            new Holiday(new DateTime(2024, 1, 15), "Gregorian fest", Calendars.Gregorian),
+            new Holiday(new DateTime(2024, 1, 15), "Hebrew fest", Calendars.Hebrew),
+            new Holiday(new DateTime(2024, 1, 15), "Chinese fest", Calendars.Chinese),
+            new Holiday(new DateTime(2024, 1, 15), "Iranian fest", Calendars.Iranian),
+            new Holiday(new DateTime(2024, 1, 15), "Islamic fest", Calendars.Islamic),
+            new Holiday(new DateTime(2024, 1, 15), "Japanese fest", Calendars.Japanese),
+            new Holiday(new DateTime(2024, 1, 15), "Persian fest", Calendars.Persian),
+
+            new Holiday(new DateTime(2024, 3, 8), "Mahashivratri", Calendars.Indian),
+            new Holiday(new DateTime(2024, 1, 25), "Shevat", Calendars.Hebrew),
+            new Holiday(new DateTime(2024, 3, 23), "Purim", Calendars.Hebrew),
+            new Holiday(new DateTime(2024, 4, 10), "Eid al Fitr", Calendars.Islamic),
+            new Holiday(new DateTime(2024, 6, 16), "Eid al Adha", Calendars.Islamic),
+            new Holiday(new DateTime(2024, 2, 23), "Emperor’s Birthday", Calendars.Japanese),
+            new Holiday(new DateTime(2024, 4, 29), "Showa Day", Calendars.Japanese),
         };
 
             InitCalendar();
