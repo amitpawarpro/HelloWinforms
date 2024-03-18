@@ -267,15 +267,25 @@ namespace HelloWinforms
             _toggleButtons[row - 2, col].Tag = day;
             _selectedDateTextBox.Text = ((DateTime)_toggleButtons[row - 2, col].Tag).ToString("ddd dd-MMM-yyyy");
 
-            string toolTipText = GetToolTip(day);
-            var isWorkDay = string.IsNullOrEmpty(toolTipText);
+            var holidays = GetHoliday(day);
+            var toolTipText=string.Empty;
+
+            if (holidays.Count>0)
+            {
+                foreach (var holiday in holidays)
+                {
+                    toolTipText += $"{Environment.NewLine}{holiday.Description}-{holiday.Calendar.CalendarType}";
+                }
+            }
+
+            var isWorkDay = day.DayOfWeek != DayOfWeek.Sunday && day.DayOfWeek != DayOfWeek.Saturday && holidays.Count == 0;
             //_toggleButtons[row - 2, col].ForeColor = isWorkDay ? Color.Black : Color.Red;
             _toggleButtons[row - 2, col].ForeColor = isCurrentMonth ? SystemColors.WindowText : SystemColors.GrayText;
             _toggleButtons[row - 2, col].BackColor = isWorkDay ? SystemColors.ButtonHighlight : SystemColors.ButtonFace;
 
             _toggleButtons[row - 2, col].Cursor = AllowSelectionOfHolidays ? Cursors.Default : isWorkDay ? Cursors.Default : Cursors.No;
 
-            _toolTip.SetToolTip(_toggleButtons[row - 2, col], isWorkDay ? day.ToShortDateString(): $"{ day.ToShortDateString()} ({toolTipText})");
+            _toolTip.SetToolTip(_toggleButtons[row - 2, col], isWorkDay ? day.ToString("ddd dd-MMM-yyyy") : $"{ day.ToString("ddd dd-MMM-yyyy")} {toolTipText}");
         }
 
         private List<Holiday> GetHoliday(DateTime day)
