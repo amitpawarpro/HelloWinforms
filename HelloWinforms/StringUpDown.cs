@@ -70,18 +70,19 @@ namespace HelloWinforms
 
         private void NudMonthIndex_ValueChanged(object sender, EventArgs e)
         {
-            var monthIndex = (int)Math.Abs(nudMonthIndex.Value % 12);
-
-            if (monthIndex == months.Length - 1 && lblMonthName.Text == months[0])
+            
+            if (nudMonthIndex.Value < 0)
             {
+                nudMonthIndex.Value = months.Length - 1;
                 if (ValueRolled != null) ValueRolled(this, new ValueRolledEventArgs(false));
             }
-            else if (monthIndex == 0 && lblMonthName.Text == months[months.Length - 1])
+            if (nudMonthIndex.Value > months.Length - 1)
             {
+                nudMonthIndex.Value = 0;
                 if (ValueRolled != null) ValueRolled(this, new ValueRolledEventArgs(true));
             }
 
-            lblMonthName.Text = months[monthIndex];
+            lblMonthName.Text = months[(int)nudMonthIndex.Value];
             if (ValueChanged != null) ValueChanged(this, new EventArgs());
         }
     }

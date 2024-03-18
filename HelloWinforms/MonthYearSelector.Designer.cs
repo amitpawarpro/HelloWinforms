@@ -59,9 +59,10 @@ namespace HelloWinforms
             // 
             // numericUpDown1
             // 
+            this.numericUpDown1.Font = new System.Drawing.Font("Courier New", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.numericUpDown1.Location = new System.Drawing.Point(119, 0);
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 23);
+            this.numericUpDown1.Size = new System.Drawing.Size(50, 18);
             this.numericUpDown1.TabIndex = 1;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -72,7 +73,7 @@ namespace HelloWinforms
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(this.stringUpDown1);
             this.Name = "MonthYearSelector";
-            this.Size = new System.Drawing.Size(239, 150);
+            this.Size = new System.Drawing.Size(166, 18);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
