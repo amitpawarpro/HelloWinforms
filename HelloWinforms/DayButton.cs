@@ -20,6 +20,7 @@ namespace HelloWinforms
             FlatAppearance.BorderColor = Color.LightGray;
             FlatAppearance.CheckedBackColor = SystemColors.GradientActiveCaption;
             FlatAppearance.MouseOverBackColor = SystemColors.GradientInactiveCaption;
+            BackgroundImageLayout = ImageLayout.Stretch;
         }
     }
 }
