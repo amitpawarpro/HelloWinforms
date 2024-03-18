@@ -278,13 +278,9 @@ namespace HelloWinforms
             _toolTip.SetToolTip(_toggleButtons[row - 2, col], isWorkDay ? day.ToShortDateString(): $"{ day.ToShortDateString()} ({toolTipText})");
         }
 
-        private string GetToolTip(DateTime day)
+        private List<Holiday> GetHoliday(DateTime day)
         {
-            if (day.DayOfWeek == DayOfWeek.Sunday || day.DayOfWeek == DayOfWeek.Saturday) return day.DayOfWeek.ToString();
-            Holiday holiday = _holidaysList.FirstOrDefault(h => h.Date.Date == day.Date);
-            if (holiday != null) return $"{holiday.Description}-{holiday.Calendar}";
-
-            return string.Empty;
+            return _holidaysList.FindAll(h => h.Date.Date == day.Date);
         }
 
         private DayButton GetDayButton()
