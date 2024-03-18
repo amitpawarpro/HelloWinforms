@@ -283,6 +283,7 @@ namespace HelloWinforms
             _toggleButtons[row - 2, col].ForeColor = isCurrentMonth ? SystemColors.WindowText : SystemColors.GrayText;
             _toggleButtons[row - 2, col].BackColor = isWorkDay ? SystemColors.ButtonHighlight : SystemColors.ButtonFace;
 
+            _toggleButtons[row - 2, col].BackgroundImage = holidays.Count==0 ? null :Grid.GenerateBitmap(32, 32, holidays);
             _toggleButtons[row - 2, col].Cursor = AllowSelectionOfHolidays ? Cursors.Default : isWorkDay ? Cursors.Default : Cursors.No;
 
             _toolTip.SetToolTip(_toggleButtons[row - 2, col], isWorkDay ? day.ToString("ddd dd-MMM-yyyy") : $"{ day.ToString("ddd dd-MMM-yyyy")} {toolTipText}");
