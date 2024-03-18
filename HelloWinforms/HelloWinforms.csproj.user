@@ -10,11 +10,20 @@
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="MonthCalendarX.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="DayButton.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Update="MonthYearSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="StringUpDown.cs">
+      <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
 </Project>
