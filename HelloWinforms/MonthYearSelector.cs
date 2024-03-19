@@ -45,6 +45,7 @@ namespace HelloWinforms
         private void Date_ValueChanged(object sender, EventArgs e)
         {
             var monthIndex = DateTimeFormatInfo.CurrentInfo.MonthNames.ToList().IndexOf(stringUpDown1.Value);
+            if (monthIndex < 0) return;
             _value = new DateTime((int)numericUpDown1.Value, monthIndex+1, 1);
             if(ValueChanged!=null) ValueChanged(this, new EventArgs());
         }

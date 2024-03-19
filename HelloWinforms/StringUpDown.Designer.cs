@@ -36,15 +36,12 @@ namespace HelloWinforms
             // 
             // nudMonthIndex
             // 
-            this.nudMonthIndex.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.nudMonthIndex.Font = new System.Drawing.Font("Courier New", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.nudMonthIndex.Dock = System.Windows.Forms.DockStyle.Fill;
             this.nudMonthIndex.ForeColor = System.Drawing.SystemColors.Window;
             this.nudMonthIndex.Location = new System.Drawing.Point(0, 0);
             this.nudMonthIndex.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nudMonthIndex.Name = "nudMonthIndex";
-            this.nudMonthIndex.Size = new System.Drawing.Size(121, 18);
+            this.nudMonthIndex.Size = new System.Drawing.Size(100, 20);
             this.nudMonthIndex.TabIndex = 0;
             this.nudMonthIndex.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudMonthIndex.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
@@ -56,27 +53,25 @@ namespace HelloWinforms
             // 
             // lblMonthName
             // 
-            this.lblMonthName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblMonthName.BackColor = System.Drawing.SystemColors.Window;
-            this.lblMonthName.Font = new System.Drawing.Font("Courier New", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblMonthName.Location = new System.Drawing.Point(18, 2);
+            this.lblMonthName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblMonthName.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblMonthName.Location = new System.Drawing.Point(17, 0);
             this.lblMonthName.Name = "lblMonthName";
-            this.lblMonthName.Size = new System.Drawing.Size(99, 15);
+            this.lblMonthName.Size = new System.Drawing.Size(83, 20);
             this.lblMonthName.TabIndex = 1;
             this.lblMonthName.Text = "January";
             this.lblMonthName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // StringUpDown
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.lblMonthName);
             this.Controls.Add(this.nudMonthIndex);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "StringUpDown";
-            this.Size = new System.Drawing.Size(121, 23);
+            this.Size = new System.Drawing.Size(100, 20);
             ((System.ComponentModel.ISupportInitialize)(this.nudMonthIndex)).EndInit();
             this.ResumeLayout(false);
 
