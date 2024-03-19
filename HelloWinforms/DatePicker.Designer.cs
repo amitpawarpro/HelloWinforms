@@ -46,6 +46,7 @@ namespace HelloWinforms
             // 
             // monthCalendarx1
             // 
+            this.monthCalendarx1.AllowSelectionOfHolidays = false;
             this.monthCalendarx1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.monthCalendarx1.Font = new System.Drawing.Font("Courier New", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.monthCalendarx1.Location = new System.Drawing.Point(0, 0);
@@ -53,10 +54,12 @@ namespace HelloWinforms
             this.monthCalendarx1.Name = "monthCalendarx1";
             this.monthCalendarx1.Size = new System.Drawing.Size(150, 150);
             this.monthCalendarx1.TabIndex = 0;
+            this.monthCalendarx1.Value = new System.DateTime(((long)(0)));
             this.monthCalendarx1.ValueChanged += new System.EventHandler(this.monthCalendarx1_DateChanged);
             // 
             // DatePicker
             // 
+            this.AnchorSize = new System.Drawing.Size(150, 21);
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);

@@ -18,6 +18,7 @@ namespace HelloWinforms
             InitializeComponent();
             InitializeDropDown(panel1);
             isUpdating = false;
+            Value = DateTime.Now.Date;
         }
         public event EventHandler ValueChanged;
 
